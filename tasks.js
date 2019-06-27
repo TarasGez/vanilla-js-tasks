@@ -93,8 +93,14 @@ function cursorCheck(str) {
 
 /// 9
 //A function which returns a string with all letters in uppercase (without built in string’s method). The function supports only english alphabet.
-//Using String.prototype
 function toUppercase(str) {
+  const sm = 'abcdefghijklmnopqrstuvwxyz';
+  const bg = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  return str
+    .replace(/\w/g, x => sm.indexOf(x) >= 0 ? bg[sm.indexOf(x)] : x);
+}
+//Using String.prototype
+function toUppercase2(str) {
   return str.
     replace(/\w/g, x => x === '' || x.charCodeAt(0) < 97 || x.charCodeAt(0) > 122 ? x : String.fromCharCode(x.charCodeAt(0) - 32) );
 }
@@ -104,8 +110,13 @@ function toUppercase(str) {
 function removeDuplicationLetters(str) {
   return str
     .split('')
-    .filter((letter, index, array) => (
-		array.indexOf(letter) == index) || letter ===' '
+    .filter(
+      (letter, index, array) => 
+        array
+        .join('')
+        .toLowerCase()
+        .indexOf(letter.toLowerCase()) == index
+        || letter ===' '
 		)
     .join('');  
 }
@@ -113,8 +124,13 @@ function removeDuplicationLetters(str) {
 function removeDuplicationLettersRegEx(str) {
   return str
     .match(/[a-z ]?/gi)
-    .filter((letter, index, array) => (
-		array.indexOf(letter) == index) || letter ===' '
+    .filter(
+      (letter, index, array) => 
+        array
+        .join('')
+        .toLowerCase()
+        .indexOf(letter.toLowerCase()) == index
+        || letter ===' '
 		)
     .join('');  
 }
@@ -123,6 +139,7 @@ function removeDuplicationLettersRegEx(str) {
 //A function that when given a number n returns the n-th number in the Fibonacci Sequence. The sequence starts from 1 and looks like this: 1, 1, 2, 3, 5, 8, 13, 21…
 function fibonacci(n) {
   switch(n) {
+    case 0: return 0;
     case 1: return 1;
     case 2: return 1;
     default: return fibonacci(n-1) + fibonacci(n-2);
@@ -130,9 +147,13 @@ function fibonacci(n) {
 }
 //Without recursion
 function fibonacci2(n) {
-  let a = 1, b = 1;
+  let a = 1, b = 1, c = 0;
+  if (n == 0) {
+     return c;
+  }
+
   for (let i = 3; i <= n; i++) {
-    let c = a + b;
+    c = a + b;
     a = b;
     b = c;
   }
