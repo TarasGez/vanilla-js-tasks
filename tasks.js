@@ -123,7 +123,7 @@ function removeDuplicationLetters(str) {
 
 function removeDuplicationLettersRegEx(str) {
   return str
-    .match(/[a-z ]?/gi)
+    .match(/\w/gi)
     .filter(
       (letter, index, array) => 
         array
