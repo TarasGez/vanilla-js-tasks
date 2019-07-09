@@ -154,7 +154,7 @@ function getAdultNames(users) {
       man => (
         man['name'] +
         ' ' + 
-        ( (new Date()).getFullYear() + 1900 - 1 - man['birthday'].split('-')[0]) // transform user's display
+        ( (new Date()).getFullYear() - 1 - man['birthday'].split('-')[0]) // transform user's display
       )
     )
 }
