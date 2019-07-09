@@ -143,18 +143,18 @@ const users = [
   { name: 'Luce', birthday: '2000-11-22' }
 ];
 
-function getAdultNames(users) {
-  const nowYear = (new Date()).getYear() + 1900;
-  
+function getAdultNames(users) {  
   return users
   .filter(
-    user => nowYear - user['birthday'].split('-')[0] >= 18 // filter users over 18 years
+    user => (
+      new Date() - new Date(user['birthday'])
+      ) /365/24/60/60/1000 >= 18 // filter users over 18 years
     )
     .map(
       man => (
         man['name'] +
         ' ' + 
-        (nowYear - 1 - man['birthday'].split('-')[0]) // transform user's display
+        ( (new Date()).getFullYear() + 1900 - 1 - man['birthday'].split('-')[0]) // transform user's display
       )
     )
 }
